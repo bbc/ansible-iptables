@@ -16,6 +16,8 @@
 - name: Reload iptables/ip6tables rules (Debian/Ubuntu)
   listen: Reload iptables
   command: netfilter-persistent start
+  register: netfilter_persistent
+  failed_when: netfilter_persistent.stdout is match('Error')
   changed_when: false
   when:
     - "ansible_os_family == 'Debian'"
